@@ -1,9 +1,12 @@
 package com.company;
 
 import com.company.controllers.AllControllers;
+import com.company.entities.Back;
+import com.company.entities.Front;
 
 import java.sql.Date;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MyApplication {
@@ -19,16 +22,14 @@ public class MyApplication {
         while (true) {
             System.out.println("");
             System.out.println("Welcome to my application");
-
-            //////////////////////////////////////////////////////////////
-            System.out.println("Enter login");
+            System.out.println("Enter login:");
             String login = scanner.nextLine();
             System.out.println("Enter password:");
             String password = scanner.nextLine();
             if (login.equals("admin") && password.equals("admin12345")) {
                 Director_start();
-            } else if (login == "dev" && password == "dev12345") {
-                System.out.println("(1)Front-end or (2)Back-end?");
+            } else if (login.equals("dev") && password.equals("dev12345")) {
+                System.out.println("1. Front-end \n2. Back-end");
                 int choice = scanner.nextInt();
                 if (choice == 1) {
                     Front_start();
@@ -40,57 +41,27 @@ public class MyApplication {
             } else {
                 System.out.println("Error");
             }
-            //////////////////////////////////////////////////////////////
-
-//            System.out.println("Select option (1-3)");
-//            System.out.println("1. Get all Products");
-//
-//            System.out.println("0. Close program");
-//            System.out.println("---------------------------");
-//            try {
-//
-//                System.out.println("Choose who you are:");
-//                System.out.println("1. Director");
-//                System.out.println("2. Developer");
-//                System.out.println("0. Exit");
-//                int option = scanner.nextInt();
-//                if (option == 1) {
-////                    Director();
-//                } else if (option == 2) {
-////                    Developer();
-//                } else {
-//                    break;
-//                }
-//
-////                System.out.println("Please, enter option:");
-////                int option = scanner.nextInt();
-////                if (option == 1) {
-////
-////                } else {
-////                    break;
-////                }
-//            } catch (InputMismatchException e) {
-//                System.out.println("Input must bew integer");
-//                scanner.nextLine();
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//            System.out.println("---------------------------");
         }
     }
 
     public void Director_start () {
         while (true) {
             System.out.println("Select option (1-3)");
+            System.out.println("0. Get All Developers");
             System.out.println("1. Get Front-end Developers");
             System.out.println("2. Get Back-end Developers");
             System.out.println("3. Add Front-end Developer");
             System.out.println("4. Add Back-end Developer");
+            System.out.println("5. Delete from Front-end by ID");
+            System.out.println("6. Delete from Back-end by ID");
             System.out.println("0. Close program");
             System.out.println("---------------------------");
             Scanner scanner = new Scanner(System.in);
             int option = scanner.nextInt();
-            if (option == 1) {
+            if (option == 0) {
+                String response = controller.getAll();
+                System.out.println(response);
+            } else if (option == 1) {
                 String response = controller.getAllFront();
                 System.out.println(response);
             } else if (option == 2) {
@@ -122,45 +93,19 @@ public class MyApplication {
                 int salary = scanner.nextInt();
                 boolean response = controller.addBack(name, age, date, lvl, salary);
                 System.out.println(response);
+            } else if (option == 5) {
+                System.out.println("Enter ID:");
+                int id = scanner.nextInt();
+                controller.deleteFront(id);
+            } else if (option == 6) {
+                System.out.println("Enter ID:");
+                int id = scanner.nextInt();
+                controller.deleteBack(id);
             } else {
                 break;
             }
         }
     }
-
-//    public void Front_start () {
-//
-//        String response = controller.getAllFront();
-//        System.out.println(response);
-////        while (true) {
-////            System.out.println("Select option (1-3)");
-////            System.out.println("1. Get all Products");
-////
-////            System.out.println("0. Close program");
-////            System.out.println("---------------------------");
-////            try {
-////                System.out.println("Choose who you are:");
-////                System.out.println("1. Director");
-////                System.out.println("2. Developer");
-////                System.out.println("0. Exit");
-////
-////
-//////                System.out.println("Please, enter option:");
-//////                int option = scanner.nextInt();
-//////                if (option == 1) {
-//////
-//////                } else {
-//////                    break;
-//////                }
-////            } catch (InputMismatchException e) {
-////                System.out.println("Input must bew integer");
-////                scanner.nextLine();
-////            } catch (Exception e) {
-////                System.out.println(e.getMessage());
-////            }
-////            System.out.println("---------------------------");
-//        }
-//    }
 
     public void Front_start() {
         String response = controller.getAllFront();
@@ -187,14 +132,6 @@ public class MyApplication {
                 } else {
                     break;
                 }
-
-//                System.out.println("Please, enter option:");
-//                int option = scanner.nextInt();
-//                if (option == 1) {
-//
-//                } else {
-//                    break;
-//                }
             } catch (InputMismatchException e) {
                 System.out.println("Input must bew integer");
                 scanner.nextLine();

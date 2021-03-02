@@ -47,10 +47,6 @@ public class Front {
         this.salary = salary;
     }
 
-    public Front() {
-
-    }
-
     public Front(String f_name, int age, Date started_working, int level, int salary) {
         setF_name(f_name);
         setAge(age);
@@ -77,6 +73,6 @@ public class Front {
                 ", started_working=" + started_working +
                 ", level=" + level +
                 ", salary=" + salary +
-                '}';
+                '}' + '\n';
     }
 }

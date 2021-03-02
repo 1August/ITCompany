@@ -5,6 +5,7 @@ import com.company.entities.Front;
 import com.company.repositories.interfaces.IAllRepositories;
 
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class AllControllers {
@@ -13,6 +14,15 @@ public class AllControllers {
     public AllControllers(IAllRepositories repository) {
             this.repository = repository;
         }
+
+    public String getAll() {
+        List<Front> fronts = repository.getAllFront();
+        List<Back> backs = repository.getAllBack();
+        List<String> allList = new LinkedList<>();
+        allList.add(fronts.toString());
+        allList.add(backs.toString());
+        return allList.toString();
+    }
 
     public String getAllFront() {
         List<Front> fronts = repository.getAllFront();
@@ -24,33 +34,33 @@ public class AllControllers {
         return backs.toString();
     }
 
-//    public String getAllBack() {
-//        List<Back> backs = repository.getAllBack();
-//        return backs.toString();
-//    }
-    public List<List> getFront() {
-        return null;
-    }
-    public List<List> getBack() {
-        return null;
-    }
-    public List getName(int f_name) {
-        return null;
-    }
     public boolean addFront(String f_name, int age, Date started_working, int level, int salary) {
         Front front = new Front(f_name, age, started_working, level, salary);
         boolean created = repository.addFront(front);
         return (created ? true : false);
     }
+
     public boolean addBack(String f_name, int age, Date started_working, int level, int salary) {
         Back back = new Back(f_name, age, started_working, level, salary);
         boolean created = repository.addBack(back);
         return (created ? true : false);
     }
-    public List<Front> deleteFront() {
-        return null;
+
+    public void deleteFront(int id) {
+        try {
+            repository.deleteFront(id);
+            System.out.println("Deleted");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-    public List<Back> deleteBack() {
-        return null;
+
+    public void deleteBack(int id) {
+        try {
+            repository.deleteBack(id);
+            System.out.println("Deleted");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
