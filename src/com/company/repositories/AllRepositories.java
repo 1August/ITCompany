@@ -152,7 +152,7 @@ public class AllRepositories implements IAllRepositories {
     }
 
     @Override
-    public List<Front> deleteFront(int id) throws PSQLException  {
+    public boolean deleteFront(int id) throws PSQLException  {
         Connection connection = null;
         try {
             connection = database.getConnection();
@@ -160,20 +160,8 @@ public class AllRepositories implements IAllRepositories {
             String sql = "DELETE FROM \"Front-end_dev\" WHERE \"ID\"=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
-            ResultSet result = statement.executeQuery();
-            List<Front> fronts = new LinkedList<>();
-            while (result.next()) {
-                Front front = new Front(
-                        result.getInt("ID"),
-                        result.getString("First_name"),
-                        result.getInt("Age"),
-                        result.getDate("Started_working"),
-                        result.getInt("Level"),
-                        result.getInt("Salary")
-                );
-                fronts.add(front);
-            }
-            return fronts;
+            statement.execute();
+            return true;
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -183,11 +171,11 @@ public class AllRepositories implements IAllRepositories {
                 throwables.printStackTrace();
             }
         }
-        return null;
+        return false;
     }
 
     @Override
-    public List<Back> deleteBack(int id){
+    public boolean deleteBack(int id){
         Connection connection = null;
         try {
             connection = database.getConnection();
@@ -195,20 +183,9 @@ public class AllRepositories implements IAllRepositories {
             String sql = "DELETE FROM \"Back-end_dev\" WHERE \"ID\"=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, id);
-            ResultSet result = statement.executeQuery();
-            List<Back> backs = new LinkedList<>();
-            while (result.next()) {
-                Back back = new Back(
-                        result.getInt("ID"),
-                        result.getString("First_name"),
-                        result.getInt("Age"),
-                        result.getDate("Started_working"),
-                        result.getInt("Level"),
-                        result.getInt("Salary")
-                );
-                backs.add(back);
-            }
-            return backs;
+            statement.execute();
+
+            return true;
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -218,6 +195,52 @@ public class AllRepositories implements IAllRepositories {
                 throwables.printStackTrace();
             }
         }
-        return null;
+        return false;
+    }
+
+    @Override
+    public int getSalary() {
+        Connection connection = null;
+        try {
+            connection = database.getConnection();
+
+            String sql = "SELECT SUM (\"Salary\") FROM \"Front-end_dev\"";
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+
+            ResultSet res = statement.getResultSet();
+            int sumFront = 0;
+            int sumBack = 0;
+            int allSum = 0;
+
+            if (res.next()) {
+                sumFront = res.getInt("sum");
+            }
+
+            sql = "SELECT SUM (\"Salary\") FROM \"Back-end_dev\"";
+            statement = connection.createStatement();
+
+            result = statement.executeQuery(sql);
+
+            res = statement.getResultSet();
+            if (res.next()) {
+                sumBack = res.getInt("sum");
+            }
+
+            allSum = sumFront + sumBack;
+            return allSum;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return 0;
     }
 }

@@ -48,8 +48,11 @@ public class AllControllers {
 
     public void deleteFront(int id) {
         try {
-            repository.deleteFront(id);
-            System.out.println("Deleted");
+            if(repository.deleteFront(id)){
+                System.out.println("Deleted");
+            }else{
+                System.out.println("Failed");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -57,10 +60,18 @@ public class AllControllers {
 
     public void deleteBack(int id) {
         try {
-            repository.deleteBack(id);
-            System.out.println("Deleted");
+            if(repository.deleteBack(id)){
+                System.out.println("Deleted");
+            }else{
+                System.out.println("Failed");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public int getSalary() {
+        int sumSalary = repository.getSalary();
+        return sumSalary;
     }
 }
