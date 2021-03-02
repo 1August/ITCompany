@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.controllers.AllControllers;
 
+import java.sql.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -96,13 +97,34 @@ public class MyApplication {
                 String response = controller.getAllBack();
                 System.out.println(response);
             } else if (option == 3) {
-
+                System.out.println("Enter first name:");
+                String name = scanner.next();
+                System.out.println("Age:");
+                int age = scanner.nextInt();
+                System.out.println("Started working date:");
+                Date date = Date.valueOf(scanner.next());
+                System.out.println("Level:");
+                int lvl = scanner.nextInt();
+                System.out.println("Salary:");
+                int salary = scanner.nextInt();
+                boolean response = controller.addFront(name, age, date, lvl, salary);
+                System.out.println(response);
             } else if (option == 4) {
-
+                System.out.println("Enter first name:");
+                String name = scanner.next();
+                System.out.println("Age:");
+                int age = scanner.nextInt();
+                System.out.println("Started working date:");
+                Date date = Date.valueOf(scanner.next());
+                System.out.println("Level:");
+                int lvl = scanner.nextInt();
+                System.out.println("Salary:");
+                int salary = scanner.nextInt();
+                boolean response = controller.addBack(name, age, date, lvl, salary);
+                System.out.println(response);
             } else {
-                System.out.println("Error");
+                break;
             }
-
         }
     }
 

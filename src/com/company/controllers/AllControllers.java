@@ -4,6 +4,7 @@ import com.company.entities.Back;
 import com.company.entities.Front;
 import com.company.repositories.interfaces.IAllRepositories;
 
+import java.sql.Date;
 import java.util.List;
 
 public class AllControllers {
@@ -36,11 +37,15 @@ public class AllControllers {
     public List getName(int f_name) {
         return null;
     }
-    public boolean createFront(Front front) {
-        return false;
+    public boolean addFront(String f_name, int age, Date started_working, int level, int salary) {
+        Front front = new Front(f_name, age, started_working, level, salary);
+        boolean created = repository.addFront(front);
+        return (created ? true : false);
     }
-    public boolean createBack(Back back) {
-        return false;
+    public boolean addBack(String f_name, int age, Date started_working, int level, int salary) {
+        Back back = new Back(f_name, age, started_working, level, salary);
+        boolean created = repository.addBack(back);
+        return (created ? true : false);
     }
     public List<Front> deleteFront() {
         return null;

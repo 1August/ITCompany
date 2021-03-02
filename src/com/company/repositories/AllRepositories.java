@@ -5,10 +5,7 @@ import com.company.entities.Back;
 import com.company.entities.Front;
 import com.company.repositories.interfaces.IAllRepositories;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class AllRepositories implements IAllRepositories {
             while (result.next()) {
                 Front front = new Front(
                         result.getInt("ID"),
-                        result.getString("Name"),
+                        result.getString("First_name"),
                         result.getInt("Age"),
                         result.getDate("Started_working"),
                         result.getInt("Level"),
@@ -71,7 +68,7 @@ public class AllRepositories implements IAllRepositories {
             while (result.next()) {
                 Back back = new Back(
                         result.getInt("ID"),
-                        result.getString("Name"),
+                        result.getString("First_name"),
                         result.getInt("Age"),
                         result.getDate("Started_working"),
                         result.getInt("Level"),
@@ -106,11 +103,61 @@ public class AllRepositories implements IAllRepositories {
 
     @Override
     public boolean addFront(Front front) {
+        Connection connection = null;
+        try {
+            connection = database.getConnection();
+
+            String sql = "INSERT INTO \"Front-end_dev\"(\"First_name\", \"Age\", \"Started_working\", \"Level\", \"Salary\")\n" +
+                    "VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, front.getF_name());
+            statement.setInt(2, front.getAge());
+            statement.setDate(3, front.getStarted_working());
+            statement.setInt(4, front.getLevel());
+            statement.setInt(5, front.getSalary());
+            statement.execute();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
         return false;
     }
 
     @Override
     public boolean addBack(Back back) {
+        Connection connection = null;
+        try {
+            connection = database.getConnection();
+
+            String sql = "INSERT INTO \"Back-end_dev\"(\"First_name\", \"Age\", \"Started_working\", \"Level\", \"Salary\")\n" +
+                    "VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, back.getF_name());
+            statement.setInt(2, back.getAge());
+            statement.setDate(3, back.getStarted_working());
+            statement.setInt(4, back.getLevel());
+            statement.setInt(5, back.getSalary());
+            statement.execute();
+            return true;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
         return false;
     }
 
