@@ -25,7 +25,7 @@ public class AllRepositories implements IAllRepositories {
         try {
             connection = database.getConnection();
 
-            String sql = "SELECT * FROM Front-end_dev";
+            String sql = "SELECT * FROM \"Front-end_dev\"";
             Statement statement = connection.createStatement();
 
             ResultSet result = statement.executeQuery(sql);
@@ -63,13 +63,13 @@ public class AllRepositories implements IAllRepositories {
         try {
             connection = database.getConnection();
 
-            String sql = "SELECT * FROM Back-end_dev";
+            String sql = "SELECT * FROM \"Back-end_dev\"";
             Statement statement = connection.createStatement();
 
             ResultSet result = statement.executeQuery(sql);
             List<Back> backs = new LinkedList<>();
             while (result.next()) {
-                Front front = new Front(
+                Back back = new Back(
                         result.getInt("ID"),
                         result.getString("Name"),
                         result.getInt("Age"),
@@ -77,7 +77,7 @@ public class AllRepositories implements IAllRepositories {
                         result.getInt("Level"),
                         result.getInt("Salary")
                 );
-                backs.add(front);
+                backs.add(back);
             }
             return backs;
         } catch (SQLException throwables) {
@@ -105,12 +105,12 @@ public class AllRepositories implements IAllRepositories {
     }
 
     @Override
-    public boolean createFront(Front front) {
+    public boolean addFront(Front front) {
         return false;
     }
 
     @Override
-    public boolean createBack(Back back) {
+    public boolean addBack(Back back) {
         return false;
     }
 
@@ -125,7 +125,12 @@ public class AllRepositories implements IAllRepositories {
     }
 
     @Override
-    public List<List> deleteList() {
+    public List<List> getFront() {
+        return null;
+    }
+
+    @Override
+    public List<List> getBack() {
         return null;
     }
 }

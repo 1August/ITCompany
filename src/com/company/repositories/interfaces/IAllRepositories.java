@@ -6,14 +6,16 @@ import com.company.entities.Front;
 import java.util.List;
 
 public interface IAllRepositories {
-    Front getAllFront();
+    List<Front> getAllFront();
     List<Back> getAllBack();
 
     List<List> getAllList();
     List getName(int f_name);
-    boolean createFront(Front front);
-    boolean createBack(Back back);
+    boolean addFront(Front front);
+    boolean addBack(Back back);
     List<Front> deleteFront();
     List<Back> deleteBack();
-    List<List> deleteList();
+
+    List<List> getFront();
+    List<List> getBack();
 }

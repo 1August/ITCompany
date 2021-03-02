@@ -6,20 +6,18 @@ import com.company.repositories.interfaces.IAllRepositories;
 
 import java.util.List;
 
-public class AllControllers implements IAllRepositories {
+public class AllControllers {
     private final IAllRepositories repository;
 
     public AllControllers(IAllRepositories repository) {
             this.repository = repository;
         }
 
-    @Override
     public String getAllFront() {
         List<Front> fronts = repository.getAllFront();
         return fronts.toString();
     }
 
-    @Override
     public String getAllBack() {
         List<Back> backs = repository.getAllBack();
         return backs.toString();
@@ -29,32 +27,25 @@ public class AllControllers implements IAllRepositories {
 //        List<Back> backs = repository.getAllBack();
 //        return backs.toString();
 //    }
-    @Override
-    public List<List> getAllList() {
+    public List<List> getFront() {
         return null;
     }
-    @Override
+    public List<List> getBack() {
+        return null;
+    }
     public List getName(int f_name) {
         return null;
     }
-    @Override
     public boolean createFront(Front front) {
         return false;
     }
-    @Override
     public boolean createBack(Back back) {
         return false;
     }
-    @Override
     public List<Front> deleteFront() {
         return null;
     }
-    @Override
     public List<Back> deleteBack() {
-        return null;
-    }
-    @Override
-    public List<List> deleteList() {
         return null;
     }
 }
