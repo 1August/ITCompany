@@ -38,14 +38,6 @@ public class AllRepositories implements IAllRepositories {
                         result.getDate("Started_working"),
                         result.getInt("Level"),
                         result.getInt("Salary")
-
-
-//                        result.getInt("ID_num"),
-//                        result.getString("NameOfProd"),
-//                        result.getInt("Price"),
-//                        result.getString("DateOfManuf"),
-//                        result.getString("DueDate"),
-//                        result.getString("Manufacturer")
                 );
                 fronts.add(front);
             }
@@ -67,6 +59,38 @@ public class AllRepositories implements IAllRepositories {
 
     @Override
     public List<Back> getAllBack() {
+        Connection connection = null;
+        try {
+            connection = database.getConnection();
+
+            String sql = "SELECT * FROM Back-end_dev";
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery(sql);
+            List<Back> backs = new LinkedList<>();
+            while (result.next()) {
+                Front front = new Front(
+                        result.getInt("ID"),
+                        result.getString("Name"),
+                        result.getInt("Age"),
+                        result.getDate("Started_working"),
+                        result.getInt("Level"),
+                        result.getInt("Salary")
+                );
+                backs.add(front);
+            }
+            return backs;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
         return null;
     }
 

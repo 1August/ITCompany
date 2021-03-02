@@ -24,6 +24,10 @@ public class List {
         this.job = job;
     }
 
+    public List() {
+
+    }
+
     public List(String f_name, String job) {
         setF_name(f_name);
         setJob(job);

@@ -47,6 +47,10 @@ public class Back {
         this.salary = salary;
     }
 
+    public Back() {
+
+    }
+
     public Back(String f_name, int age, Date started_working, int level, int salary) {
         setF_name(f_name);
         setAge(age);

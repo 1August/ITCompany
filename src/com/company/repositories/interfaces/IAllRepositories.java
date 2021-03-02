@@ -6,8 +6,9 @@ import com.company.entities.Front;
 import java.util.List;
 
 public interface IAllRepositories {
-    List<Front> getAllFront();
+    Front getAllFront();
     List<Back> getAllBack();
+
     List<List> getAllList();
     List getName(int f_name);
     boolean createFront(Front front);
